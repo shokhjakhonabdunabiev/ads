@@ -6,7 +6,7 @@ Binary search works for already sorted arrays.
 def binary_search(arr, target):
     l, r = 0, len(arr) - 1
     while l <= r:
-        m = (l + r) // 2
+        m = l + (r - l) // 2
         if arr[m] > target:
             r -= 1
         elif arr[m] < target:
@@ -20,7 +20,7 @@ def binary_search_recursive(arr, target):
     def dfs(l, r):
         if l > r:
             return None
-        m = (l + r) // 2
+        m = l + (r - l) // 2
         if arr[m] > target:
             return dfs(l, m-1)
         elif arr[m] < target:

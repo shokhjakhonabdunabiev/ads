@@ -127,4 +127,3 @@ if __name__ == '__main__':
     for i, test_case in enumerate(test_cases):
         res = spiralOrder3(test_case)
         print(f"Case {i + 1}:", res)
-

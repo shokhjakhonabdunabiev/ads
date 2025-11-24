@@ -1,6 +1,7 @@
 from __future__ import annotations
 from typing import Any
 
+''' Implement Queue '''
 class Node:
     def __init__(self, val: Any, next: Node = None):
         self.val = val
@@ -15,6 +16,8 @@ class Queue:
         self.tail: Node = None
         self.length = 0
 
+    # Time Comeplexity: O(1)
+    # Space Complexity: O(1)
     def enque(self, val: Any):
         node = Node(val)
         self.length += 1
@@ -26,6 +29,8 @@ class Queue:
         self.tail.next = node
         self.tail = node        
 
+    # Time Comeplexity: O(1)
+    # Space Complexity: O(1)
     def dequeu(self) -> Any:
         if self.length == 0:
             return None
@@ -39,6 +44,8 @@ class Queue:
 
         return head.val
 
+    # Time Comeplexity: O(1)
+    # Space Complexity: O(1)
     def peek(self) -> Any:
         if self.length == 0:
             return None

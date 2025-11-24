@@ -1,6 +1,7 @@
 from __future__ import annotations
 from typing import Any
 
+''' Implement Stack '''
 class Node:
     def __init__(self, val: Any, prev: Node = None):
         self.val = val
@@ -14,6 +15,8 @@ class Stack:
         self.head: Node = None
         self.length = 0
 
+    # Time Comeplexity: O(1)
+    # Space Complexity: O(1)
     def push(self, val: Any):
         node = Node(val)
         self.length += 1
@@ -24,6 +27,8 @@ class Stack:
         node.prev = self.head
         self.head = node
 
+    # Time Comeplexity: O(1)
+    # Space Complexity: O(1)
     def pop(self) -> Any:
         if self.length == 0:
             return None
@@ -33,6 +38,8 @@ class Stack:
         self.head = self.head.prev
         return head.val
 
+    # Time Comeplexity: O(1)
+    # Space Complexity: O(1)
     def peek(self) -> Any:
         if self.length == 0:
             return None

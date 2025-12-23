@@ -57,6 +57,26 @@ def counting_sort_optimized(lst: list[int]) -> None:
         lst[i] = sorted_lst[i]
     return lst
 
+def counting_sort(arr: list[int]) -> list[int]:
+    if not arr:
+        return arr
+        
+    min_num = min(arr)
+    max_num = max(arr)
+    count = [0] * (max_num - min_num + 1)
+    
+    shift = -min_num
+    for num in arr:
+        count[num + shift] += 1
+    
+    i = 0
+    for num, cnt in enumerate(count):
+        for _ in range(cnt):
+            arr[i] = num - shift
+            i += 1
+    
+    return arr
+
 if __name__ == "__main__":
     nums = [3,4,9,5,7,2,1,8,6]
     print(counting_sort(nums))

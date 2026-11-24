@@ -1,39 +1,44 @@
+from typing import Any
+
+
 class CircularQueue:
     def __init__(self, k: int):
         self.capacity = k
         self.length = 0
-        self.data = [None] * k
-        self.head = None
-        self.tail = None
+        self.data: list[Any] = [None] * k
+        self.head: int | None = None
+        self.tail: int | None = None
 
     def enQueue(self, value: int) -> bool:
         if self.length == self.capacity:
             return False
-        
+
         self.length += 1
         if self.length == 1:
             self.head = self.tail = 0
             self.data[0] = value
             return True
-        
+
+        assert isinstance(self.tail, int)
+
         self.tail = (self.tail + 1) % self.capacity
         self.data[self.tail] = value
         return True
-        
 
     def deQueue(self) -> bool:
         if self.length == 0:
             return False
-        
+
+        assert isinstance(self.head, int)
+
         self.length -= 1
         self.data[self.head] = None
         if self.length == 0:
             self.head = self.tail = None
             return True
-            
+
         self.head = (self.head + 1) % self.capacity
         return True
-        
 
     def Front(self) -> int:
         if self.head is None:
@@ -60,3 +65,4 @@ class CircularQueue:
 # param_4 = obj.Rear()
 # param_5 = obj.isEmpty()
 # param_6 = obj.isFull()
+

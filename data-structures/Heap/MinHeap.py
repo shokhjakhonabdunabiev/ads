@@ -1,22 +1,27 @@
-'''
+"""
 Implement Heap
 - insert: TC - O(n*log(n))
 - delete: TC - O(n*log(n))
-'''
+"""
+
+from typing import Any
+
+
 class MinHeap:
     def __init__(self):
-        self.data = []
-        self.length = 0
+        self.data: list[Any] = []
+        self.length: int = 0
 
     def insert(self, val: int):
-        self.data[self.length] = val
+        self.data.append(val)
+        # self.data[self.length] = val
         self.heapify_up(self.length)
         self.length += 1
 
     def delete(self):
         if self.length == 0:
             return -1
-        
+
         out = self.data[0]
         self.length -= 1
 
@@ -31,12 +36,12 @@ class MinHeap:
     def heapify_down(self, idx: int):
         if idx >= self.length:
             return
-        
-        l_idx = self.left_child(idx)
-        r_idx = self.right_child(idx)
+
+        l_idx = self._left_child(idx)
+        r_idx = self._right_child(idx)
         if l_idx >= self.length:
             return
-        
+
         l_val = self.data[l_idx]
         r_val = self.data[r_idx]
         val = self.data[idx]
@@ -51,8 +56,8 @@ class MinHeap:
     def heapify_up(self, idx: int):
         if idx == 0:
             return
-    
-        p_idx = self.parent()
+
+        p_idx = self._parent(idx)
         p_val = self.data[p_idx]
         val = self.data[idx]
 
@@ -60,11 +65,24 @@ class MinHeap:
             self.data[idx], self.data[p_idx] = self.data[p_idx], self.data[idx]
             self.heapify_up(p_idx)
 
-    def parent(self, idx: int) -> int:
+    def _parent(self, idx: int) -> int:
         return (idx - 1) // 2
-    
-    def left_child(self, idx: int) -> int:
+
+    def _left_child(self, idx: int) -> int:
         return idx * 2 + 1
-    
-    def right_child(self, idx: int) -> int:
+
+    def _right_child(self, idx: int) -> int:
         return idx * 2 + 2
+
+    def __repr__(self) -> str:
+        return str(self.data)
+
+
+if __name__ == "__main__":
+    heap = MinHeap()
+    for num in range(10, 0, -1):
+        heap.insert(num)
+    print(heap.data)
+    for _ in range(10):
+        val = heap.delete()
+        print(val)

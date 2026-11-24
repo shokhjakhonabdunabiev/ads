@@ -1,18 +1,22 @@
+"""Implement Stack"""
+
 from __future__ import annotations
+
 from typing import Any
 
-''' Implement Stack '''
+
 class Node:
-    def __init__(self, val: Any, prev: Node = None):
-        self.val = val
-        self.prev = prev
+    def __init__(self, val: Any, prev: Node | None = None):
+        self.val: int = val
+        self.prev: Node | None = prev
 
     def __repr__(self):
         return f"Node({self.val})"
 
+
 class Stack:
     def __init__(self):
-        self.head: Node = None
+        self.head: Node | None = None
         self.length = 0
 
     # Time Comeplexity: O(1)
@@ -33,6 +37,8 @@ class Stack:
         if self.length == 0:
             return None
 
+        assert self.head is not None
+
         self.length -= 1
         head = self.head
         self.head = self.head.prev
@@ -43,6 +49,9 @@ class Stack:
     def peek(self) -> Any:
         if self.length == 0:
             return None
+
+        assert self.head is not None
+
         return self.head.val
 
     def __repr__(self):
@@ -76,4 +85,3 @@ if __name__ == "__main__":
     stack.pop()
     print("Pop:", stack)
     print("Peek:", stack.peek())
-    

@@ -1,4 +1,4 @@
-'''
+"""
 UnionFind implementation:
     - QuickFind
     - QuickUnion
@@ -7,7 +7,8 @@ UnionFind implementation:
 - In QuickFind the root array stores the root of the node.
 - In QuickUnion the root array stores the parent of the node.
 - Root node's parent is node itself.
-'''
+"""
+
 
 # QuickFind
 class UnionFindQF:
@@ -55,7 +56,7 @@ class UnionFindQU:
     # TC - O(n)
     def connected(self, x: int, y: int) -> bool:
         return self.find(x) == self.find(y)
-    
+
 
 # QuickUnion (Path Compression)
 class UnionFindPathCompression:
@@ -110,20 +111,20 @@ class UnionFindRanked:
     # TC - O(log(n))
     def connected(self, x: int, y: int) -> bool:
         return self.find(x) == self.find(y)
-    
+
 
 # UnionFind (PathCompression + union by rank)
 class UnionFind:
     def __init__(self, size: int):
         self.root = [i for i in range(size)]
         self.rank = [1] * size
-    
+
     def find(self, x: int) -> int:
         if x == self.root[x]:
             return x
         self.root[x] = self.find(self.root[x])
         return self.root[x]
-    
+
     def union(self, x, y):
         rootX = self.find(x)
         rootY = self.find(y)
@@ -157,7 +158,6 @@ if __name__ == "__main__":
     uf.union(9, 4)
     print(uf.connected(4, 9))  # true
 
-
     # Test Case
     uf = UnionFindQU(10)
     # 1-2-5-6-7 3-8-9 4
@@ -173,7 +173,6 @@ if __name__ == "__main__":
     # 1-2-5-6-7 3-8-9-4
     uf.union(9, 4)
     print(uf.connected(4, 9))  # true
-
 
     # Test Case
     uf = UnionFindPathCompression(10)
@@ -191,7 +190,6 @@ if __name__ == "__main__":
     uf.union(9, 4)
     print(uf.connected(4, 9))  # true
 
-
     # Test Case
     uf = UnionFindRanked(10)
     # 1-2-5-6-7 3-8-9 4
@@ -207,3 +205,4 @@ if __name__ == "__main__":
     # 1-2-5-6-7 3-8-9-4
     uf.union(9, 4)
     print(uf.connected(4, 9))  # true
+

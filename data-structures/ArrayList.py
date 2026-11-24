@@ -1,29 +1,34 @@
-'''
+"""
 Implementation can be extended with load factor.
-'''
+"""
+
 
 class ArrayList:
     def __init__(self, capacity: int):
-        self.capacity = capacity
-        self.array = [None] * capacity
-        self.length = 0
-        
+        self.capacity: int = capacity
+        self.array: list[int | None] = [None] * capacity
+        self.length: int = 0
+
     def add(self, value: int) -> None:
         if self.length == self.capacity:
             self.resize()
         self.array[self.length] = value
         self.length += 1
-    
+
     def get(self, index: int) -> int:
         if index < 0 or index >= self.length:
             return -1
-        return self.array[index]
-    
+
+        value = self.array[index]
+        assert isinstance(value, int)
+
+        return value
+
     def set(self, index: int, value: int) -> None:
         if index < 0 or index >= self.length:
             return
         self.array[index] = value
-    
+
     def remove(self, index: int) -> None:
         if index < 0 or index >= self.length:
             return
@@ -32,18 +37,19 @@ class ArrayList:
             self.array[i] = self.array[i + 1]
             i += 1
         self.array[i] = None
-    
+
     def resize(self) -> None:
         old_capacity = self.capacity
         self.capacity = old_capacity * 2
-        new_array = [None] * self.capacity
+        new_array: list[int | None] = [None] * self.capacity
         for i in range(old_capacity):
             new_array[i] = self.array[i]
         self.array = new_array
-    
+
     def __repr__(self) -> str:
         return str(self.array)
-    
+
+
 if __name__ == "__main__":
     lst = ArrayList(2)
     print(lst)
@@ -58,4 +64,4 @@ if __name__ == "__main__":
     print(lst)
     lst.remove(3)
     print(lst)
-        
+

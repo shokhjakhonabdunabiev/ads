@@ -1,15 +1,17 @@
-'''
+"""
 Implement Trie
-'''
+"""
+
 
 class TrieNode:
     def __init__(self):
-        self.children = dict()
-        self.is_word = False
+        self.children: dict[str, TrieNode] = {}
+        self.is_word: bool = False
+
 
 class Trie:
     def __init__(self):
-        self.root = TrieNode()
+        self.root: TrieNode = TrieNode()
 
     def insert(self, word: str) -> None:
         curr = self.root
@@ -35,6 +37,7 @@ class Trie:
             curr = curr.children[ch]
         return True
 
+
 if __name__ == "__main__":
     trie = Trie()
     trie.insert("hello")
@@ -42,4 +45,4 @@ if __name__ == "__main__":
     print(trie.search("hella"))
     print(trie.startsWith("he"))
     print(trie.startsWith("ab"))
-    
+

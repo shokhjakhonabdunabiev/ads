@@ -1,4 +1,4 @@
-'''
+"""
 Implement HashMap.
 
 - HashMap is implemented using array and hashing under the hood.
@@ -13,26 +13,32 @@ Implement HashMap.
     - Robin Hood hashing
     - Cuckoo hashing
     - Hopscotch hashing
-'''
+"""
+
+from __future__ import annotations
+
+from collections.abc import Hashable
+from typing import Any
+
 
 class ListNode:
-    def __init__(self, key, val, next=None):
-        self.key = key
-        self.val = val
-        self.next = next
+    def __init__(self, key: Hashable, val: Any, next: ListNode | None = None):
+        self.key: Hashable = key
+        self.val: Any = val
+        self.next: ListNode | None = next
 
 
 class HashMap:
     def __init__(self):
-        self.capacity = 10
-        self.length = 0
-        self.data: list[ListNode] = [None] * self.capacity
+        self.capacity: int = 10
+        self.length: int = 0
+        self.data: list[ListNode | None] = [None] * self.capacity
 
-    def put(self, key, val):
+    def put(self, key: Hashable, val: Any) -> None:
         self.length += 1
         if self.load_factor() >= 0.7:
             self.resize()
-        
+
         idx = self.hash(key)
         node = ListNode(key, val)
 
@@ -48,23 +54,24 @@ class HashMap:
                 return
             prev = curr
             curr = curr.next
+        assert prev is not None
         prev.next = node
-        
-    def get(self, key):
+
+    def get(self, key: Hashable) -> Any:
         idx = self.hash(key)
         curr = self.data[idx]
         while curr:
             if curr.key == key:
                 return curr.val
             curr = curr.next
-    
-    def remove(self, key):
+
+    def remove(self, key: Hashable) -> None:
         idx = self.hash(key)
         prev, curr = None, self.data[idx]
         while curr and curr.key != key:
             prev = curr
             curr = curr.next
-        
+
         if curr is None:
             return
 
@@ -77,13 +84,13 @@ class HashMap:
 
         return curr.val
 
-    def hash(self, key):
+    def hash(self, key: Hashable) -> int:
         return hash(key) % self.capacity
-    
-    def load_factor(self):
-        return self.length / self.capacity        
 
-    def resize(self):
+    def load_factor(self) -> float:
+        return self.length / self.capacity
+
+    def resize(self) -> None:
         self.capacity *= 2
         old_data = self.data
         self.data = [None] * self.capacity
@@ -92,6 +99,7 @@ class HashMap:
             while node:
                 self.put(node.key, node.val)
                 node = node.next
+
 
 if __name__ == "__main__":
     mp = HashMap()
@@ -126,3 +134,4 @@ if __name__ == "__main__":
     print(mp.get("a"))
     mp.put("a", 2000)
     print(mp.get("a"))
+

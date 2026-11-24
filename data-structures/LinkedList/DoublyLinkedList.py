@@ -1,56 +1,54 @@
-'''
+"""
 Implement Doubly LinkedList
 P.S. A lot of pointers to take care of!
-'''
+"""
 
 from __future__ import annotations
+
 from typing import Any
 
+
 class Node:
-    def __init__(self, val: Any, prev: Node = None, next: Node = None):
+    def __init__(self, val: Any, prev: Node | None = None, next: Node | None = None):
         self.val = val
         self.prev = prev
         self.next = next
 
-
     def __repr__(self):
-       return f"Node({self.val})"
+        return f"Node({self.val})"
 
 
 class DoublyLinkedList:
     def __init__(self):
-        self.length = 0
-        self.head: Node = None
-        self.tail: Node = None
+        self._length: int = 0
+        self.head: Node | None = None
+        self.tail: Node | None = None
 
-
+    @property
     def length(self) -> int:
         return self.length
 
-
     def prepend(self, val: Any):
         node = Node(val)
-        self.length += 1
+        self._length += 1
         if self.head is None:
             self.head = self.tail = node
             return
-        
+
         node.next = self.head
         self.head.prev = node
         self.head = node
 
-
     def append(self, val: Any):
         node = Node(val)
-        self.length += 1
+        self._length += 1
         if self.tail is None:
             self.tail = self.head = node
             return
-    
+
         node.prev = self.tail
         self.tail.next = node
         self.tail = self.tail.next
-
 
     def insert_at(self, index: int, val: Any):
         if index < 0 or index > self.length:
@@ -61,19 +59,20 @@ class DoublyLinkedList:
         elif index == self.length:
             self.append(val)
             return
-        
-        self.length += 1
+
         curr = self.head
         i = 0
         while i != index and curr:
             curr = curr.next
             i += 1
-        
+
+        assert curr is not None and curr.prev is not None
+
         node = Node(val)
         node.prev = curr.prev
         node.next = curr
         curr.prev.next = curr.prev = node
-
+        self._length += 1
 
     def remove(self, item: Any) -> Any:
         curr = self.head
@@ -81,18 +80,16 @@ class DoublyLinkedList:
             curr = curr.next
         return self.remove_node(curr)
 
-
     def remove_at(self, index: int) -> Any:
         node = self.getAt(index)
-        return self.remove_node(node)       
+        return self.remove_node(node)
 
-
-    def remove_node(self, node: Node) -> Any:
+    def remove_node(self, node: Node | None) -> Any:
         if node is None:
             return
-        
-        self.length -= 1
-        
+
+        self._length -= 1
+
         if node.prev:
             node.prev.next = node.next
         if node.next:
@@ -102,14 +99,12 @@ class DoublyLinkedList:
             self.head = node.next
         if self.tail == node:
             self.tail = node.prev
-        
+
         node.prev = node.next = None
         return node.val
-    
 
     def get(self, index: int) -> Any:
         return self.getAt(index)
-    
 
     def getAt(self, index: int):
         if index < 0 or index >= self.length:
@@ -120,7 +115,6 @@ class DoublyLinkedList:
             curr = curr.next
             i += 1
         return curr
-    
 
     def __repr__(self):
         s = []
@@ -128,8 +122,8 @@ class DoublyLinkedList:
         while cur:
             s.append(f"{cur} =>")
             cur = cur.next
-        s.append(f"None")
-        return " ".join(s) 
+        s.append("None")
+        return " ".join(s)
 
 
 if __name__ == "__main__":
@@ -167,3 +161,4 @@ if __name__ == "__main__":
     print("Get 3:", linked_list.get(3))
     print("Get 4:", linked_list.get(4))
     print("Get 10:", linked_list.get(10))
+

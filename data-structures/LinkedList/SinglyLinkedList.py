@@ -1,4 +1,4 @@
-'''
+"""
 Linked List consist of nodes where each node had value and pointer to next value.
 LinkedList has the following functionalities:
     - append
@@ -8,46 +8,55 @@ LinkedList has the following functionalities:
     - get
 
 P.s. looking for prev and node can moved into separate function
-'''
+"""
 
-from __future__ import annotations # Can use not defined class in its constructor
+from __future__ import annotations  # Can use not defined class in its constructor
+
 # quotes can be used too "ListNode" instead of import above
 from typing import Any
 
+
 class Node:
-    def __init__(self, val: Any, next: Node = None):
+    def __init__(self, val: Any, next: Node | None = None):
         self.val = val
         self.next = next
 
     def __repr__(self):
-       return f"Node({self.val})"
+        return f"Node({self.val})"
+
 
 class LinkedList:
     def __init__(self):
-        self.length = 0
-        self.head: Node = None
-        self.tail: Node = None
+        self._length: int = 0
+        self.head: Node | None = None
+        self.tail: Node | None = None
+
+    @property
+    def length(self):
+        return self._length
 
     # Time Complexity: O(1)
     def prepend(self, val: Any):
         node = Node(val)
-        self.length += 1
+        self._length += 1
 
         if self.length == 1:
             self.head = self.tail = node
             return
-        
+
         node.next = self.head
         self.head = node
 
     # Time Complexity: O(1)
     def append(self, val: Any):
         node = Node(val)
-        self.length += 1
+        self._length += 1
 
-        if self.length == 0:
+        if self.length == 1:
             self.tail = self.head = node
             return
+
+        assert self.tail is not None
 
         self.tail.next = node
         self.tail = self.tail.next
@@ -62,9 +71,9 @@ class LinkedList:
         elif index == 0:
             self.prepend(val)
             return
-        
+
         node = Node(val)
-        self.length += 1
+        self._length += 1
 
         prev, curr = None, self.head
         i = 0
@@ -72,28 +81,34 @@ class LinkedList:
             prev = curr
             curr = curr.next
             i += 1
-        
+
+        assert prev is not None
+
         prev.next = node
         node.next = curr
 
     # Time Complexity: O(n)
     def remove_at(self, index: int) -> Any:
         if index < 0 or index >= self.length:
-            raise IndexError("out of bounds") # we can terminate function silently too
-        
-        self.length -= 1
+            raise IndexError("out of bounds")  # we can terminate function silently too
+
+        assert self.head is not None
+
+        self._length -= 1
         if index == 0:
             head = self.head
             self.head = self.head.next
             head.next = None
             return head.val
 
-        prev, curr = None, self.head
-        i = 0
+        prev, curr = self.head, self.head.next
+        i = 1
         while i != index and curr:
             prev = curr
             curr = curr.next
             i += 1
+
+        assert curr is not None
 
         prev.next = curr.next
         curr.next = None
@@ -106,24 +121,24 @@ class LinkedList:
     # Time Complexity: O(n)
     def get(self, index: int) -> Any:
         if index < 0 or index >= self.length:
-            raise IndexError("out of bounds") # can return -1 or None (design choice)
+            raise IndexError("out of bounds")  # can return -1 or None (design choice)
 
         curr = self.head
         i = 0
         while i != index and curr:
             curr = curr.next
             i += 1
-        
+
         return curr.val if curr else None
-    
+
     def __repr__(self):
         s = []
         cur = self.head
         while cur:
             s.append(f"{cur} =>")
             cur = cur.next
-        s.append(f"None")
-        return " ".join(s) 
+        s.append("None")
+        return " ".join(s)
 
 
 if __name__ == "__main__":
@@ -161,3 +176,4 @@ if __name__ == "__main__":
     print("Get 3:", linked_list.get(3))
     print("Get 4:", linked_list.get(4))
     print("Get 10:", linked_list.get(10))
+

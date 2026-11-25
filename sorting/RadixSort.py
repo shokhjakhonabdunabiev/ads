@@ -45,3 +45,4 @@ class Solution:
 
         # undo the original shift
         lst[:] = [num + shift for num in lst]
+

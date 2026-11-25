@@ -134,4 +134,3 @@ if __name__ == "__main__":
     print(mp.get("a"))
     mp.put("a", 2000)
     print(mp.get("a"))
-

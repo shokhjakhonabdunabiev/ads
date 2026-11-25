@@ -32,3 +32,4 @@ class Solution:
         # perfectly fine to just return sorted_array instead
         for i in range(len(lst)):
             lst[i] = sorted_array[i]
+

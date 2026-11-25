@@ -32,4 +32,3 @@ def heap_sort(arr: list[int]) -> list[int]:
 if __name__ == "__main__":
     arr = [10, 3, 76, 34, 23, 32]
     print(heap_sort(arr))
-

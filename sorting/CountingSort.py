@@ -1,9 +1,10 @@
-'''
+"""
 CountingSort
-'''
+"""
+
 
 # TC: O(n + k)
-def counting_sort(nums: list[int]) -> list[int]:
+def counting_sort_a(nums: list[int]) -> list[int]:
     k = max(nums)
     counts = [0] * (k + 1)
     for num in nums:
@@ -13,20 +14,20 @@ def counting_sort(nums: list[int]) -> list[int]:
     for i, cnt in enumerate(counts):
         counts[i] = start_idx
         start_idx += cnt
-    
+
     sorted_nums = [0] * len(nums)
 
     for num in nums:
         sorted_nums[counts[num]] = num
         counts[num] += 1
-    
+
     for i in range(len(nums)):
         nums[i] = sorted_nums[i]
-    
+
     return nums
 
 
-def counting_sort_optimized(lst: list[int]) -> None:
+def counting_sort_optimized(lst: list[int]) -> list[int]:
     """
     Sorts a list of integers (handles shifting of integers to range 0 to K)
     """
@@ -57,26 +58,29 @@ def counting_sort_optimized(lst: list[int]) -> None:
         lst[i] = sorted_lst[i]
     return lst
 
+
 def counting_sort(arr: list[int]) -> list[int]:
     if not arr:
         return arr
-        
+
     min_num = min(arr)
     max_num = max(arr)
     count = [0] * (max_num - min_num + 1)
-    
+
     shift = -min_num
     for num in arr:
         count[num + shift] += 1
-    
+
     i = 0
     for num, cnt in enumerate(count):
         for _ in range(cnt):
             arr[i] = num - shift
             i += 1
-    
+
     return arr
 
+
 if __name__ == "__main__":
-    nums = [3,4,9,5,7,2,1,8,6]
+    nums = [3, 4, 9, 5, 7, 2, 1, 8, 6]
     print(counting_sort(nums))
+

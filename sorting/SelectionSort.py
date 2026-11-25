@@ -1,6 +1,7 @@
-'''
+"""
 SelectionSort
-'''
+"""
+
 
 # TC - O(n^2)
 def selection_sort(nums: list[int]) -> list[int]:
@@ -15,5 +16,6 @@ def selection_sort(nums: list[int]) -> list[int]:
 
 
 if __name__ == "__main__":
-    nums = [3,4,9,5,7,2,1,8,6]
+    nums = [3, 4, 9, 5, 7, 2, 1, 8, 6]
     print(selection_sort(nums))
+

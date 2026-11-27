@@ -1,4 +1,4 @@
-'''
+"""
 Given an m x n matrix, return all elements of the matrix in spiral order.
 
 Questions to ask:
@@ -20,14 +20,15 @@ Sample input:
 
     Case 3:
         []
-'''
+"""
+
 
 # Time complexity - O(m*n), where m is the length of rows, n - the length of columns
 # Space complexity - O(1), if output array is not considered
 def spiralOrder(matrix: list[list[int]]) -> list[int]:
     if len(matrix) == 0:
         return []
-    
+
     res = []
     rows, cols = len(matrix), len(matrix[0])
     row, col = 0, 0
@@ -54,10 +55,11 @@ def spiralOrder(matrix: list[list[int]]) -> list[int]:
 
     return res
 
+
 def spiralOrder2(matrix: list[list[int]]) -> int:
     if len(matrix) == 0:
         return []
-    
+
     res = []
     rows, cols = len(matrix), len(matrix[0])
     direction = 1
@@ -74,6 +76,7 @@ def spiralOrder2(matrix: list[list[int]]) -> int:
         cols -= 1
         direction *= -1
     return res
+
 
 # Constrains mentions that -100 <= matrix[i][j] <= 100
 # Space Complexity: might require additonal space to track visited elements,
@@ -101,27 +104,28 @@ def spiralOrder3(matrix: list[list[int]]) -> int:
                 break
             if matrix[next_row][next_col] == VISITED:
                 break
-            
+
             change_direction = 0
             row, col = next_row, next_col
             res.append(matrix[row][col])
             matrix[row][col] = VISITED
-        
+
         current_direction = (current_direction + 1) % 4
         change_direction += 1
     return res
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     test_cases = [
         [
-            [1,2,3],
-            [4,5,6],
-            [7,8,9],
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9],
         ],
         [
-            [1,2,3,4,5,6],
+            [1, 2, 3, 4, 5, 6],
         ],
-        []
+        [],
     ]
 
     for i, test_case in enumerate(test_cases):

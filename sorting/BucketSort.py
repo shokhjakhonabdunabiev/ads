@@ -37,6 +37,10 @@
 
 
 def bucket_sort(nums: list[int]) -> list[int]:
+    """
+    Time complexity: O(n)
+    Space complexity: O(n + k), where k is the number of buckets
+    """
     if not nums:
         return nums
 

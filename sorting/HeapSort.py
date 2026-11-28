@@ -3,7 +3,7 @@ Heap Sort
 """
 
 
-def heapify(arr: list[int], n: int, i: int):
+def heapify(arr: list[int], n: int, i: int) -> None:
     largest = i
     l = 2 * i + 1
     r = 2 * i + 2
@@ -17,18 +17,38 @@ def heapify(arr: list[int], n: int, i: int):
         heapify(arr, n, largest)
 
 
-# Time Complexity: O(n*log(n))
-# Space Complexity: O(1)
-def heap_sort(arr: list[int]) -> list[int]:
+def heap_sort(arr: list[int]) -> None:
+    """
+    Time complexity: O(n*log(n))
+    Space complexity: O(1)
+    """
     n = len(arr)
     for i in range(n // 2, -1, -1):
         heapify(arr, n, i)
     for i in range(n - 1, 0, -1):
         arr[i], arr[0] = arr[0], arr[i]
         heapify(arr, i, 0)
-    return arr
 
 
 if __name__ == "__main__":
-    arr = [10, 3, 76, 34, 23, 32]
-    print(heap_sort(arr))
+    test_cases = [
+        ([], []),
+        ([42], [42]),
+        ([1, 2, 4, 3, 5, 6], [1, 2, 3, 4, 5, 6]),
+        ([6, 5, 4, 3, 2, 1], [1, 2, 3, 4, 5, 6]),
+        ([7, 7, 7, 7, 7], [7, 7, 7, 7, 7]),
+        ([4, 2, 7, 1, 5, 3, 6], [1, 2, 3, 4, 5, 6, 7]),
+        ([-3, -1, -7, 2, 5, 0], [-7, -3, -1, 0, 2, 5]),
+        ([3, 5, 2, 3, 8, 1, 5], [1, 2, 3, 3, 5, 5, 8]),
+    ]
+
+    for input, expected in test_cases:
+        actual = (
+            input.copy()
+        )  # copy of the input, for error message, since the input is sorted in-place
+        heap_sort(actual)
+        assert actual == expected, (
+            f"heap_sort({input}) returned {actual}, expected {expected}"
+        )
+
+    print("All tests passed!")

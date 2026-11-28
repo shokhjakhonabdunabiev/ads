@@ -3,9 +3,11 @@ Binary search works for already sorted arrays.
 """
 
 
-# Time Complexity: O(log(n))
-# Space Complexity: O(1)
-def binary_search(arr, target):
+def binary_search(arr: list[int], target: int) -> int | None:
+    """
+    Time complexity: O(log(n))
+    Space complexity: O(1)
+    """
     l, r = 0, len(arr) - 1
     while l <= r:
         m = l + (r - l) // 2
@@ -19,7 +21,7 @@ def binary_search(arr, target):
 
 
 # Remember about base case in recursion!
-def binary_search_recursive(arr, target):
+def binary_search_recursive(arr: list[int], target: int) -> int | None:
     def dfs(l, r):
         if l > r:
             return None
@@ -35,15 +37,19 @@ def binary_search_recursive(arr, target):
 
 if __name__ == "__main__":
     test_cases = [
-        ([2, 3, 7, 8, 9], 7),
-        ([1, 4, 5], 5),
-        ([10, 20, 30, 40], 40),
-        ([2, 4, 4, 4, 9], 4),
-        ([1, 3, 5, 7], 2),
-        ([], 123),
-        ([123], 123),
+        ([2, 3, 7, 8, 9], 7, 2),
+        ([1, 4, 5], 5, 2),
+        ([10, 20, 30, 40], 40, 3),
+        ([2, 4, 4, 4, 9], 4, 2),
+        ([1, 3, 5, 7], 2, None),
+        ([], 123, None),
+        ([123], 123, 0),
     ]
 
-    for case in test_cases:
-        res = binary_search_recursive(*case)
-        print(res)
+    for *input, expected in test_cases:
+        actual = binary_search_recursive(*input)
+        assert actual == expected, (
+            f"binary_search_recursive({input}) returned {actual}, expected {expected}"
+        )
+
+    print("All tests passed!")

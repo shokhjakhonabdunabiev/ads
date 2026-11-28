@@ -4,9 +4,11 @@ If element is not in array, return None
 """
 
 
-# Time Complexity: O(n)
-# Space Complexity: O(1)
-def liner_search(arr, target):
+def liner_search(arr: list[int], target: int) -> int | None:
+    """
+    Time complexity: O(n)
+    Space complexity: O(1)
+    """
     for i, element in enumerate(arr):
         if element == target:
             return i
@@ -15,15 +17,19 @@ def liner_search(arr, target):
 
 if __name__ == "__main__":
     test_cases = [
-        ([3, 8, 2, 7, 9], 7),
-        ([5, 1, 4], 5),
-        ([10, 20, 30, 40], 40),
-        ([2, 4, 4, 4, 9], 4),
-        ([1, 3, 5, 7], 2),
-        ([], 123),
+        ([2, 3, 7, 8, 9], 7, 2),
+        ([1, 4, 5], 5, 2),
+        ([10, 20, 30, 40], 40, 3),
+        ([2, 4, 4, 4, 9], 4, 1),
+        ([1, 3, 5, 7], 2, None),
+        ([], 123, None),
+        ([123], 123, 0),
     ]
 
-    for test_case in test_cases:
-        res = liner_search(*test_case)
-        print(res)
+    for *input, expected in test_cases:
+        actual = liner_search(*input)
+        assert actual == expected, (
+            f"liner_search({input}) returned {actual}, expected {expected}"
+        )
 
+    print("All tests passed!")

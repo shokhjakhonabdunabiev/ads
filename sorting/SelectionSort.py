@@ -20,10 +20,24 @@ def selection_sort(nums: list[int]) -> None:
 
 
 if __name__ == "__main__":
-    nums = [3, 4, 9, 5, 7, 2, 1, 8, 6]
-    selection_sort(nums)
-    print(nums)
+    test_cases = [
+        ([], []),
+        ([42], [42]),
+        ([1, 2, 4, 3, 5, 6], [1, 2, 3, 4, 5, 6]),
+        ([6, 5, 4, 3, 2, 1], [1, 2, 3, 4, 5, 6]),
+        ([7, 7, 7, 7, 7], [7, 7, 7, 7, 7]),
+        ([4, 2, 7, 1, 5, 3, 6], [1, 2, 3, 4, 5, 6, 7]),
+        ([-3, -1, -7, 2, 5, 0], [-7, -3, -1, 0, 2, 5]),
+        ([3, 5, 2, 3, 8, 1, 5], [1, 2, 3, 3, 5, 5, 8]),
+    ]
 
-    nums = [-3, -4, 9, -5, 7, -2, 1, 8, 6]
-    selection_sort(nums)
-    print(nums)
+    for input, expected in test_cases:
+        actual = (
+            input.copy()
+        )  # copy of the input, for error message, since the input is sorted in-place
+        selection_sort(actual)
+        assert actual == expected, (
+            f"selection_sort({input}) returned {actual}, expected {expected}"
+        )
+
+    print("All tests passed!")
